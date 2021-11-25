@@ -53,7 +53,7 @@ while True:
             users.append(login)
             passwords.append(pswrd)
     elif v==3:
-        print("Head aega!")
+        print("Head aega! ")
         break
     else:
         print("On vaja valida 1,2 või 3.")
