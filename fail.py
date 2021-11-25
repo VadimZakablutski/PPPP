@@ -1,28 +1,59 @@
-def loe_failist(file:str)->str:
-	f=open(file,"r")
-	stroka=f.read()#str
-	stroka=f.readlines()#list
-	f.close()
-	return stroka
-stroka=loe_failist("TextFile1.txt")
-print(stroka)
-def loe_failist_listisse(file:str)->list:
-	f=open(file,"r")
-	list_=[]
-	for stroka in f:
-		list_.append(stroka.strip())
-	f.close()
-	return list_
-spisok=loe_failist_listisse("TextFile1.txt")
-print(spisok)
-def salvesta_failsisse(file:str):
-	f=open(file,"a")
-	text=input("Sisesta tekst: ")
-	f.write(text+"\n")
-for i in range(10):
-	salvesta_failsisse("Loetelu.txt")
-def faili_sisu_umberkirjutamine(file:str):
-	text=input("Sisesta uus tekst: ")
-	with open(file,"w") as f:
-		f.write(text+ "\n")
-faili_sisu_umberkirjutamine(input("Faili nimetus")+".txt")
+from PPPP import*
+from module import*
+users=loe_failist_listisse("users.txt")
+passwords=loe_failist_listisse("passwords.txt")
+password=passauto()
+print(password)
+while True:
+    print("Regestreerimine - 1, Autriseerimine - 2, Välja - 3")
+    v=int(input())
+    if v==1:
+        login=input("Sisestage nimi: ")
+        pswrd=input("Sisestage salasõnu: ")
+        while len(pswrd)>12:
+            try:
+                pswrd=input("Sisesta salasõna: ")
+            except:
+                ValueError
+        t=passcontrol(pswrd)
+        if t!=True:
+            print("Salasõna ei sobib.") 
+        else:
+            print("Salasõna sobib, regestreerimine lõpub.")
+            users.append(login)
+            passwords.append(pswrd)
+    elif v==2:
+        login=input("Sisesta nimi: ")
+        if login in users:
+            pswrd=input("Sisestage salasõna: ")
+            if pswrd not in passwords:
+                print("Vale salasõna")
+            else:
+                print("Autoriseerimine lõpub")
+                break
+        else:
+            print("Viga! Soovite registreeruda?")
+            reg=input("1 - Jah, 2 - Ei.")
+            if reg=="2":
+                print("Välja!")
+                break
+            if reg=="1":
+               login=input("Sisestage nimi: ")
+        pswrd=input("Sisestage salasõnu: ")
+        while len(pswrd)>12:
+            try:
+                pswrd=input("Sisesta salasõna: ")
+            except:
+                ValueError
+        t=passcontrol(pswrd)
+        if t!=True:
+            print("Salasõna ei sobib.") 
+        else:
+            print("Salasõna sobib, regestreerimine lõpub.")
+            users.append(login)
+            passwords.append(pswrd)
+    elif v==3:
+        print("Head aega!")
+        break
+    else:
+        print("On vaja valida 1,2 või 3.")
